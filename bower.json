@@ -1,0 +1,18 @@
+{
+  "name": "mic-check",
+  "version": "0.0.0",
+  "homepage": "https://github.com/maniart/mic-check",
+  "authors": [
+    "maniart <mani.art@gmail.com>"
+  ],
+  "description": "UX engineer code test for mic.com",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

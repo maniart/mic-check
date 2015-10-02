@@ -1,0 +1,19 @@
+{
+  "name": "mic-check",
+  "version": "1.0.0",
+  "description": "UX engineer code test for mic.com",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maniart/mic-check.git"
+  },
+  "author": "Mani Nilchiani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maniart/mic-check/issues"
+  },
+  "homepage": "https://github.com/maniart/mic-check#readme"
+}
