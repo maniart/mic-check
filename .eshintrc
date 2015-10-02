@@ -1,0 +1,41 @@
+{
+    "extends": "eslint:recommended",
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "ecmaFeatures": {
+        "jsx": true
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "strict": [2, "function"],
+        "dot-notation": 2,
+        "eqeqeq": 2,
+        "no-alert": 2,
+        "guard-for-in": 2,
+        "no-caller": 2,
+        "no-eval": 2,
+        "no-extend-native": 2,
+        "no-extra-bind": 2,
+        "no-implied-eval": 2,
+        "no-loop-func": 2,
+        "no-proto": 2,
+        "no-script-url": 2,
+        "no-useless-call": 2,
+        "no-useless-concat": 2,
+        "no-with": 2,
+        "no-unexpected-multiline": 2,
+        "valid-typeof": 2,
+        "no-use-before-define": 1,
+        "comma-style": 1,
+        "indent": [1, 2],
+        "no-trailing-spaces": 1,
+        "no-multiple-empty-lines": 1
+    },
+    "globals": {
+       
+    }
+}
