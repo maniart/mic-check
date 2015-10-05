@@ -34,7 +34,7 @@ gulp.task('html', function() {
 });
 
 gulp.task('sass', function() {
-  return gulp.src('./src/styles/style.scss')
+  return gulp.src('./src/styles/**/*.scss')
     .pipe(sass({
         outputStyle: 'compressed'
     }))
