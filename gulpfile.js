@@ -14,6 +14,7 @@ var gulp = require('gulp'),
   uglify = require('gulp-uglify'),
   notify = require('gulp-notify');
 
+
 gulp.task('clean', function() {
   return gulp.src('./dist/')
     .pipe(clean())
@@ -65,8 +66,10 @@ gulp.task('lint', function() {
 
 gulp.task('javascript', function() {
   return gulp.src('./src/**/*.js*')
-    .pipe(babel())
-    .pipe(uglify())
+    .pipe(babel({
+      modules: 'umd'
+    }))
+    //.pipe(uglify())
     .pipe(gulp.dest('./dist'))
     .pipe(notify({
       title: 'Mic Check JavaScript',
@@ -74,8 +77,27 @@ gulp.task('javascript', function() {
     }));
 });
 
+// gulp.task('browserify', ['javascript'], function() {
+//   // set up the browserify instance on a task basis
+//   var b = browserify({
+//     entries: './dist/scripts/main.js',
+//     debug: true
+//   });
+
+//   return b.bundle()
+//     .pipe(source('./dist/scripts/main.js'))
+//     .pipe(buffer())
+//     //.pipe(sourcemaps.init({loadMaps: true}))
+//     // Add transformation tasks to the pipeline here.
+//     //.pipe(uglify())
+//     .on('error', gutil.log)
+//     //.pipe(sourcemaps.write('./'))
+//     .pipe(gulp.dest('./dist/scripts/main.js'));
+// });
+
 gulp.task('bower', function() {
   return bower()
+    .pipe(gulp.dest('./dist'))
     .pipe(notify({
       title: 'Mic Check Bower',
       message: 'Bower Complete.'

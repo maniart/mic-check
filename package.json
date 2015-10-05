@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/maniart/mic-check#readme",
   "dependencies": {
+    "browserify": "^11.2.0",
     "eslint-plugin-react": "^3.5.1",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.0.2",
@@ -28,6 +29,9 @@
     "gulp-minify-html": "^1.0.4",
     "gulp-notify": "^2.2.0",
     "gulp-sass": "^2.0.4",
-    "gulp-uglify": "^1.4.1"
+    "gulp-uglify": "^1.4.1",
+    "gulp-util": "^3.0.6",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
   }
 }
