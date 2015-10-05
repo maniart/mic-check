@@ -76,7 +76,6 @@ gulp.task('javascript', function() {
 
 gulp.task('bower', function() {
   return bower()
-    .pipe(gulp.dest('./dist'))
     .pipe(notify({
       title: 'Mic Check Bower',
       message: 'Bower Complete.'
