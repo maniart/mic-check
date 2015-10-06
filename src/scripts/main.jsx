@@ -20,7 +20,7 @@
 			return(
 				<a 
 					onClick={this.handleClick} 
-					className={this.state.active ? 'active' : 'inactive'}
+					className={this.state.active ? 'active load-more btn btn-default' : 'inactive load-more btn btn-default'}
 					href="#">
 					Load More Stories
 				</a>
@@ -34,10 +34,13 @@
 		
 		render() {
 			return(
-				<article 
-					className='news-item'>
-					{this.props.title}
-				</article>
+				<a className='news-item' href={this.props.url} target='_blank'>
+					<article>
+						<h1 className='item-title'>
+							{this.props.title}
+						</h1>
+					</article>
+				</a>
 			);
 		}
 
@@ -134,7 +137,7 @@
 
 		render() {
 			// Iteratively create child `NewsItem` components.
-			let items = this.state.data.map((node)=> <NewsItem title = {node.title} content = {node.content} />);
+			let items = this.state.data.map((node)=> <NewsItem title = {node.title} url = {node.url} />);
 			return(
 				<div className='news-items'>
 					{items}
