@@ -3,6 +3,12 @@
 	// Load More Button component
 	let LoadBtn = React.createClass({
 		
+		getInitialState() {
+			return {
+				active: true
+			}
+		},
+
 		handleClick(e) {
 			e.preventDefault();
 			// Call parent component's handler
@@ -14,7 +20,7 @@
 			return(
 				<a 
 					onClick={this.handleClick} 
-					className='load-more' 
+					className={this.state.active ? 'active' : 'inactive'}
 					href="#">
 					Load More Stories
 				</a>
@@ -78,7 +84,8 @@
 		getInitialState() {
 			return {
 				// Starting with no data
-				data: []
+				data: [],
+				btnClass: 'active'
 			};
 		},
 
@@ -103,8 +110,10 @@
 					this.bufferData(endPoint.url).then(this.append);
 				} else {
 					// No. Just use whatever's left in the buffer and update state.
+					debugger;
 					this.setState({
-						data: this.state.data.concat(this.buffer.splice(0, this.buffer.length))
+						data: this.state.data.concat(this.buffer.splice(0, this.buffer.length)),
+						btnClass: 'inactive'
 					});
 				}
 			}
@@ -129,7 +138,7 @@
 			return(
 				<div className='news-items'>
 					{items}
-					<LoadBtn onLoadMoreClick={this.handleLoadMoreClick} />
+					<LoadBtn onLoadMoreClick={this.handleLoadMoreClick} className={this.state.btnClass} />
 				</div>
 			);
 		}

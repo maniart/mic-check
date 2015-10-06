@@ -1,5 +1,8 @@
-@import '../normalize-css/normalize.css';
+.navbar {
+	background-color: white;
+	border-bottom: 2px solid black;
 
-body {
-	background: white;
+	.main-heading {
+		font-size: 90%;
+	}
 }
