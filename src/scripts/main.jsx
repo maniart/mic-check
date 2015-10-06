@@ -123,7 +123,8 @@
 		append() {
 			// Find an unused endpoint, if any.
 			let endPoint = _.findWhere(this.endPoints, {used: false}),
-					updatedData;
+					updatedData,
+					sortProps;
 			// Do we have enough data in buffer?
 			if(this.buffer.length >= this.bufferSize) {
 				// Add the buffered data to `state.data`
@@ -145,7 +146,12 @@
 					});
 				}
 			}
+			if(window.localStorage && window.localStorage.getItem('mic-check-sort')) {
+				sortProps = JSON.parse(window.localStorage.getItem('mic-check-sort'));
+				this.sortBy(sortProps.prop, sortProps.direction);
+			}
 			return this;
+
 		},
 
 		// Handle `Load More` clicks
@@ -165,17 +171,19 @@
 			this.setState({
 				data: sortedData
 			});
-			this.props.sort = {
-				prop,
-				direction
-			};
-			console.log(this.props);
+			if(window.localStorage) {
+				window.localStorage.setItem('mic-check-sort', JSON.stringify({
+					prop,
+					direction
+				}));
+			}
 			return this;
 		},
 
 		render() {
 			// Iteratively create child `NewsItem` components.
 			let items = this.state.data.map((node)=> <NewsItem title = {node.title} url = {node.url} words = {node.words} image = {node.image} />);
+
 			return(
 				<div className = 'news-items'>
 					<nav className='navbar navbar-default navbar-fixed-top'>
