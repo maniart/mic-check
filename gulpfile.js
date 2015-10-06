@@ -103,7 +103,7 @@ gulp.task('connect', function() {
   });
 });
 
-gulp.task('build', ['html', 'sass', 'lint',/* 'bower', 'data',*/ 'javascript']);
+gulp.task('build', ['html', 'sass', 'lint', 'bower', 'data', 'javascript']);
 
 gulp.task('watch', function() {
   gulp.watch(['./src/**/*'], ['build']);
