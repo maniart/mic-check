@@ -54,7 +54,7 @@
 
 		// Payload at every `Load More` click. 
 		// Change this to load less or more stories at every `Load More` click.
-		bufferSize: 13,
+		bufferSize: 10,
 
 		// Buffering News items
 		buffer: [],
