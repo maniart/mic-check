@@ -1,5 +1,6 @@
 /*eslint strict: [2, "global"]*/
 /*eslint-env node*/
+
 'use strict';
 
 var gulp = require('gulp'),
@@ -13,7 +14,6 @@ var gulp = require('gulp'),
   eslint = require('gulp-eslint'),
   uglify = require('gulp-uglify'),
   notify = require('gulp-notify');
-
 
 gulp.task('clean', function() {
   return gulp.src('./dist/')
@@ -65,7 +65,7 @@ gulp.task('lint', function() {
 });
 
 gulp.task('javascript', function() {
-  return gulp.src('./src/**/*.js*')
+  return gulp.src(['./src/**/*.js*', '!./src/**/*.json'])
     .pipe(babel({
       modules: 'umd'
     }))
@@ -77,23 +77,15 @@ gulp.task('javascript', function() {
     }));
 });
 
-// gulp.task('browserify', ['javascript'], function() {
-//   // set up the browserify instance on a task basis
-//   var b = browserify({
-//     entries: './dist/scripts/main.js',
-//     debug: true
-//   });
-
-//   return b.bundle()
-//     .pipe(source('./dist/scripts/main.js'))
-//     .pipe(buffer())
-//     //.pipe(sourcemaps.init({loadMaps: true}))
-//     // Add transformation tasks to the pipeline here.
-//     //.pipe(uglify())
-//     .on('error', gutil.log)
-//     //.pipe(sourcemaps.write('./'))
-//     .pipe(gulp.dest('./dist/scripts/main.js'));
-// });
+gulp.task('data', function() {
+  return gulp
+    .src('./src/**/data/*.json')
+    .pipe(gulp.dest('./dist/'))
+    .pipe(notify({
+      title: 'Mic Check Data',
+      message: 'Data Complete.'
+    }));
+});
 
 gulp.task('bower', function() {
   return bower()
@@ -111,7 +103,7 @@ gulp.task('connect', function() {
   });
 });
 
-gulp.task('build', ['html', 'sass', 'lint', 'bower', 'javascript']);
+gulp.task('build', ['html', 'sass', 'lint', 'bower', 'data', 'javascript']);
 
 gulp.task('watch', function() {
   gulp.watch(['./src/**/*'], ['build']);

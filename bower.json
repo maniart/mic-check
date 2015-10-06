@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "fetch": "~0.9.0",
+    "lodash": "~3.10.1",
     "normalize-css": "~3.0.3",
     "react": "~0.13.3"
   }
