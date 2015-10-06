@@ -1,7 +1,10 @@
 # mic-check
 UX engineer code test for mic.com
 
-## Installation
+## Installing dependencies
 
 - `npm install`
-- `bower install`
+
+## Build and run
+
+- `gulp clean && gulp build && gulp`
