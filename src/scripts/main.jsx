@@ -1,5 +1,25 @@
 ;(()=> {
 
+	// Sort Button component
+	let SortBtn = React.createClass({
+		handleClick(e) {
+			e.preventDefault();
+			this.props.onSortClick(this.props.propToSortBy, this.props.directionToSortBy); 
+			return this;
+		},
+
+		render() {
+			return(
+				<a 
+					onClick ={this.handleClick}
+					className = 'sort-btn'
+					href = '#'>
+					Sort by {this.props.propToSortBy}
+				</a>
+			);
+		}
+	});
+	
 	// Load More Button component
 	let LoadBtn = React.createClass({
 		
@@ -19,9 +39,9 @@
 		render() {
 			return(
 				<a 
-					onClick={this.handleClick} 
-					className={this.state.active ? 'active load-more btn btn-default' : 'inactive load-more btn btn-default'}
-					href="#">
+					onClick = {this.handleClick} 
+					className = {this.state.active ? 'active load-more btn btn-default' : 'inactive load-more btn btn-default'}
+					href = "#">
 					Load More Stories
 				</a>
 			);
@@ -95,8 +115,7 @@
 		getInitialState() {
 			return {
 				// Starting with no data
-				data: [],
-				btnClass: 'active'
+				data: []
 			};
 		},
 
@@ -122,8 +141,7 @@
 				} else {
 					// No. Just use whatever's left in the buffer and update state.
 					this.setState({
-						data: this.state.data.concat(this.buffer.splice(0, this.buffer.length)),
-						btnClass: 'inactive'
+						data: this.state.data.concat(this.buffer.splice(0, this.buffer.length))
 					});
 				}
 			}
@@ -142,13 +160,32 @@
 			return this;
 		},
 
+		sortBy(prop, direction) {
+			let sortedData = _.sortByOrder(this.state.data, [prop], [direction]);
+			this.setState({
+				data: sortedData
+			});
+			this.props.sort = {
+				prop,
+				direction
+			};
+			console.log(this.props);
+			return this;
+		},
+
 		render() {
 			// Iteratively create child `NewsItem` components.
 			let items = this.state.data.map((node)=> <NewsItem title = {node.title} url = {node.url} words = {node.words} image = {node.image} />);
 			return(
-				<div className='news-items'>
+				<div className = 'news-items'>
+					<nav className='navbar navbar-default navbar-fixed-top'>
+						<div className='container-fluid'>
+							<h1 className='main-heading'>Unpublished Articles</h1>    	
+		    			<SortBtn onSortClick = {this.sortBy} propToSortBy = 'words' directionToSortBy = 'asc' />
+		    		</div>
+					</nav>
 					{items}
-					<LoadBtn onLoadMoreClick={this.handleLoadMoreClick} className={this.state.btnClass} />
+					<LoadBtn onLoadMoreClick={this.handleLoadMoreClick} />
 				</div>
 			);
 		}

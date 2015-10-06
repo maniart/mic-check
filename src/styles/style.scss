@@ -4,6 +4,7 @@
 
 	.main-heading {
 		font-size: 90%;
+		display: inline-block;
 	}
 }
 
@@ -28,6 +29,17 @@
 		
 		&:hover {
 			background-color: #000;
+			color: #fff;
+		}
+	}
+	
+	.sort-btn {
+		float: right;
+		color: #fff;
+		line-height: 3;
+
+		&:hover {
+			text-decoration: none;
 			color: #fff;
 		}
 	}
