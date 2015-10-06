@@ -33,10 +33,17 @@
 	let NewsItem = React.createClass({
 		
 		render() {
+			let style = {
+				backgroundImage: 'url(' + this.props.image + ')'
+			};
 			return(
 				<a className='news-item' href={this.props.url} target='_blank'>
 					<article>
-						<img src={this.props.image} alt={this.props.url} className='news-thumbnail' />
+						<figure style={style} className='item-thumbnail'>
+							<figcaption>
+								{this.props.url}
+							</figcaption>
+						</figure>
 						<h1 className='item-title'>
 							{this.props.title}
 						</h1>

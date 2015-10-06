@@ -9,8 +9,13 @@
 
 .content-wrapper {
 	padding-top: 60px;
-
+	padding-bottom: 60px;
 	.load-more {
+		position: fixed;
+		padding: 20px 0;
+		bottom: 0;
+		left: 0;
+		width: 100%;
 		box-shadow: none;
 		border-radius: 0;
 		text-align: center;
@@ -29,13 +34,14 @@
 }
 
 .news-item {
-	
 	border-left: 2px solid black;
-	padding: 5px;
+	padding: 0;
 	margin: 10px auto;
 	display: block;
 	color: #000;
 	transition: .3s border ease-in;
+	clear: both;
+	overflow: hidden;
 	
 	&:hover {
 		border-left-width: 5px;
@@ -46,9 +52,27 @@
 	article {
 		
 	}
+
+	.item-thumbnail {
+		width: 150px;
+		height: 150px;
+		border: 1px solid #000;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+		float: left;
+		margin-right: 10px;
+
+		figcaption {
+			display: none;
+		}
+	}
 	
 	.item-title {
-		font-size: 100%;
+		word-wrap: break-word;
+		padding: 5px;
+		font-weight: 300;
+		font-size: 140%;
 		margin-top: 0;
 		margin-bottom: 5px;
 		letter-spacing: 0.01em;
