@@ -1,40 +1,35 @@
 ;(()=> {
 
-	let data = [
-		{
-			title: 'title one',
-			content: 'content one'
-		},
-		{
-			title: 'title two',
-			content: 'content two'
-		}
-	];
-
+	// Load More Button component
 	let LoadBtn = React.createClass({
 		
 		handleClick(e) {
 			e.preventDefault();
+			// Call parent component's handler
 			this.props.onLoadMoreClick();
 			return this;
 		},
 
 		render() {
 			return(
-				<a onClick={this.handleClick} className='load-more' href="#">Load More</a>
+				<a 
+					onClick={this.handleClick} 
+					className='load-more' 
+					href="#">
+					Load More Stories
+				</a>
 			);
 		}
 	
 	});
 
+	// News Item component
 	let NewsItem = React.createClass({
-		getInitialState() {
-			return null;
-		},
-	
+		
 		render() {
 			return(
-				<article className='news-item'>
+				<article 
+					className='news-item'>
 					{this.props.title}
 				</article>
 			);
@@ -42,8 +37,10 @@
 
 	});
 
+	// New List component
 	let NewsList = React.createClass({
 		
+		// Data endpoints
 		endPoints: [
 			{ 
 				url: '../data/articles1.json',
@@ -55,19 +52,24 @@
 			}
 		],
 
-		bufferSize: 10,
+		// Payload at every `Load More` click. 
+		// Change this to load less or more stories at every `Load More` click.
+		bufferSize: 13,
 
+		// Buffering News items
 		buffer: [],
 		
-		bufferData(endPoint) {
-			return fetch(endPoint, {
+		// Grab data and hydrate buffer
+		bufferData(url) {
+			return fetch(url, {
 				method: 'get'
 			}).then((response) => {
 				return response.json();
 			}).then((responseJson) => {
+				// Hydrate the buffer
 				this.buffer = this.buffer.concat(responseJson);
-				//debugger;
-				_.findWhere(this.endPoints, {url: endPoint}).used = true;
+				// Mark the endpoint as `used`
+				_.findWhere(this.endPoints, {url: url}).used = true;
 			}).catch((e) => {
 				console.error(`bufferData failed: ${e}`);
 			});
@@ -75,42 +77,54 @@
 
 		getInitialState() {
 			return {
+				// Starting with no data
 				data: []
 			};
 		},
 
+		// Append more stories. If buffer runs out, proxy to `bufferData` for more data.
 		append() {
-			//debugger;
+			// Find an unused endpoint, if any.
 			let endPoint = _.findWhere(this.endPoints, {used: false}),
-					buf;
+					updatedData;
+			// Do we have enough data in buffer?
 			if(this.buffer.length >= this.bufferSize) {
-				buf = this.state.data.concat(this.buffer.splice(0, this.bufferSize));
-				debugger;
+				// Add the buffered data to `state.data`
+				updatedData = this.state.data.concat(this.buffer.splice(0, this.bufferSize));
+				// Update state, UI updates reactively
 				this.setState({
-					data: buf
+					data: updatedData
 				});
+			// Not enough in our buffer
 			} else {
+				// Any endpoins left unused?
 				if(endPoint) {
+					// Yes. Hit the endpoint and call this method immediately.
 					this.bufferData(endPoint.url).then(this.append);
 				} else {
+					// No. Just use whatever's left in the buffer and update state.
 					this.setState({
-						data: this.data.concat(this.buffer.splice(0, this.buffer.length - 1))
+						data: this.state.data.concat(this.buffer.splice(0, this.buffer.length))
 					});
 				}
 			}
 			return this;
 		},
 
+		// Handle `Load More` clicks
 		handleLoadMoreClick() {
 			this.append();
+			return this;
 		},
 
+		// First run of the app. This method is called once in the component lifecycle by React.
 		componentDidMount() {
 			this.append();
 			return this;
 		},
 
 		render() {
+			// Iteratively create child `NewsItem` components.
 			let items = this.state.data.map((node)=> <NewsItem title = {node.title} content = {node.content} />);
 			return(
 				<div className='news-items'>
@@ -122,6 +136,7 @@
 
 	});
 	
+	// Render app in the container node.
 	React.render(<NewsList />, document.getElementById('content'));
 
 })();
