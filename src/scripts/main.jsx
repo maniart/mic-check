@@ -36,6 +36,7 @@
 			return(
 				<a className='news-item' href={this.props.url} target='_blank'>
 					<article>
+						<img src={this.props.image} alt={this.props.url} className='news-thumbnail' />
 						<h1 className='item-title'>
 							{this.props.title}
 						</h1>
@@ -113,7 +114,6 @@
 					this.bufferData(endPoint.url).then(this.append);
 				} else {
 					// No. Just use whatever's left in the buffer and update state.
-					debugger;
 					this.setState({
 						data: this.state.data.concat(this.buffer.splice(0, this.buffer.length)),
 						btnClass: 'inactive'
@@ -137,7 +137,7 @@
 
 		render() {
 			// Iteratively create child `NewsItem` components.
-			let items = this.state.data.map((node)=> <NewsItem title = {node.title} url = {node.url} />);
+			let items = this.state.data.map((node)=> <NewsItem title = {node.title} url = {node.url} words = {node.words} image = {node.image} />);
 			return(
 				<div className='news-items'>
 					{items}
