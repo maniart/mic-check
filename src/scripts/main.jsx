@@ -15,8 +15,8 @@
 		
 		handleClick(e) {
 			e.preventDefault();
-			console.debug('LoadBtn click handler');
 			this.props.onLoadMoreClick();
+			return this;
 		},
 
 		render() {
@@ -66,6 +66,8 @@
 				return response.json();
 			}).then((responseJson) => {
 				this.buffer = this.buffer.concat(responseJson);
+				//debugger;
+				_.findWhere(this.endPoints, {url: endPoint}).used = true;
 			}).catch((e) => {
 				console.error(`bufferData failed: ${e}`);
 			});
@@ -78,10 +80,12 @@
 		},
 
 		append() {
+			//debugger;
 			let endPoint = _.findWhere(this.endPoints, {used: false}),
 					buf;
 			if(this.buffer.length >= this.bufferSize) {
-				buf = this.buffer.splice(0, this.bufferSize);
+				buf = this.state.data.concat(this.buffer.splice(0, this.bufferSize));
+				debugger;
 				this.setState({
 					data: buf
 				});
@@ -97,9 +101,8 @@
 			return this;
 		},
 
-		handleLoadMoreClick(e) {
-			if(e) e.preventDefault();
-			console.debug('NewsList click handler')
+		handleLoadMoreClick() {
+			this.append();
 		},
 
 		componentDidMount() {
